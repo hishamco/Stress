@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace Microsoft.Test.Diagnostics
 {
@@ -20,6 +21,8 @@ namespace Microsoft.Test.Diagnostics
         private void Alloc(long v)
         {
             byte[] bytes = new byte[v];
+            RandomNumberGenerator.Create().GetBytes(bytes);
+            Console.WriteLine($"Allocated {bytes.Length} random bytes, including {bytes[0]}");
         }
     }
 }
