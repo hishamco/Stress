@@ -16,15 +16,16 @@ namespace Microsoft.Test.Diagnostics
 
         public override string ToString()
         {
-            if (Value < 1024)
+            var absValue = Math.Abs(Value);
+            if (absValue < 1024)
             {
                 return $"{Value}B";
             }
-            else if (Value < (1024 * 1024))
+            else if (absValue < (1024 * 1024))
             {
                 return $"{(double)Value / 1024.0:0.00}KB";
             }
-            else if (Value < (1024 * 1024 * 1024))
+            else if (absValue < (1024 * 1024 * 1024))
             {
                 return $"{(double)Value / (1024.0 * 1024.0):0.00}MB";
             }

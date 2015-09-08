@@ -13,9 +13,20 @@ namespace Microsoft.Test.Diagnostics
 
             var comparison = after.GetDifference(before);
             Console.WriteLine("Changes: ");
-            Console.WriteLine($" Private: {comparison.Memory.PrivateMemoryChange}");
-            Console.WriteLine($" Virtual: {comparison.Memory.VirtualMemoryChange}");
-            Console.WriteLine($" Working: {comparison.Memory.WorkingSetChange}");
+            Console.WriteLine($" Private: {comparison.Memory.PrivateMemoryChange} ({after.Memory.PrivateMemory})");
+            Console.WriteLine($" Virtual: {comparison.Memory.VirtualMemoryChange} ({after.Memory.VirtualMemory})");
+            Console.WriteLine($" Working: {comparison.Memory.WorkingSetChange} ({after.Memory.WorkingSet})");
+
+            // Force a GC and wait
+            Console.WriteLine("Forcing a GC...");
+            GC.Collect(0, GCCollectionMode.Forced, blocking: true);
+            var afterGC = TraceSnapshot.Capture();
+
+            comparison = afterGC.GetDifference(after);
+            Console.WriteLine("Changes: ");
+            Console.WriteLine($" Private: {comparison.Memory.PrivateMemoryChange} ({afterGC.Memory.PrivateMemory})");
+            Console.WriteLine($" Virtual: {comparison.Memory.VirtualMemoryChange} ({afterGC.Memory.VirtualMemory})");
+            Console.WriteLine($" Working: {comparison.Memory.WorkingSetChange} ({afterGC.Memory.WorkingSet})");
         }
 
         private void Alloc(long v)
