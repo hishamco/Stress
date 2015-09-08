@@ -16,6 +16,7 @@ namespace Microsoft.Test.Diagnostics
             Console.WriteLine($" Private: {comparison.Memory.PrivateMemoryChange} ({after.Memory.PrivateMemory})");
             Console.WriteLine($" Virtual: {comparison.Memory.VirtualMemoryChange} ({after.Memory.VirtualMemory})");
             Console.WriteLine($" Working: {comparison.Memory.WorkingSetChange} ({after.Memory.WorkingSet})");
+            Console.WriteLine($" Heap   : {comparison.Memory.HeapChange} ({after.Memory.HeapSize})");
 
             // Force a GC and wait
             Console.WriteLine("Forcing a GC...");
@@ -27,6 +28,7 @@ namespace Microsoft.Test.Diagnostics
             Console.WriteLine($" Private: {comparison.Memory.PrivateMemoryChange} ({afterGC.Memory.PrivateMemory})");
             Console.WriteLine($" Virtual: {comparison.Memory.VirtualMemoryChange} ({afterGC.Memory.VirtualMemory})");
             Console.WriteLine($" Working: {comparison.Memory.WorkingSetChange} ({afterGC.Memory.WorkingSet})");
+            Console.WriteLine($" Heap   : {comparison.Memory.HeapChange} ({afterGC.Memory.HeapSize})");
         }
 
         private void Alloc(long v)
